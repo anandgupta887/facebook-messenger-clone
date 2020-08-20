@@ -3,13 +3,21 @@ import "./App.css";
 import { Input, Button, FormControl, InputLabel } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import Message from "./Message";
+import db from "./firebase";
+import firebase from "firebase";
 
 function App() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
-    { username: "pratik", text: "Hello" },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    db.collection("messages")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setMessages(snapshot.docs.map((doc) => doc.data()));
+      });
+  }, []);
 
   useEffect(() => {
     setUsername(prompt("enter your name:"));
@@ -17,6 +25,11 @@ function App() {
 
   const handleClick = (event) => {
     event.preventDefault();
+    db.collection("messages").add({
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      username: username,
+      text: input,
+    });
     setMessages([...messages, { username: username, text: input }]);
     setInput("");
   };
@@ -31,6 +44,7 @@ function App() {
             onChange={(e) => setInput(e.target.value)}
             value={input}
             id="my-input"
+            autoFocus
           />
           <Button
             variant="outlined"

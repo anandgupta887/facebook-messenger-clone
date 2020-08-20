@@ -8,7 +8,7 @@ function Message({ message, username }) {
     <div className={`message ${isUser && "message__user"}`}>
       <Card className={`${isUser ? "message__sent" : "message__received"}`}>
         <CardContent>
-          <Typography color="white" variant="h5" component="h5">
+          <Typography variant="h5" component="h5">
             {message.username} : {message.text}
           </Typography>
         </CardContent>
