@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Input, Button, FormControl, InputLabel } from "@material-ui/core";
+import { Input, FormControl, IconButton } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import Message from "./Message";
 import db from "./firebase";
@@ -42,26 +42,31 @@ function App() {
 
   return (
     <div className="App">
+      <img
+        src="https://facebookbrand.com/wp-content/uploads/2018/09/Header-e1538151782912.png?w=100&h=100"
+        alt=""
+      />
       <h1>Hello {username}</h1>
-      <form>
-        <FormControl>
-          <InputLabel htmlFor="my-input">Type your message here...</InputLabel>
+      <form className="app__form">
+        <FormControl className="app__formcontrol">
           <Input
+            placeholder="Enter your message..."
+            className="app__input"
             onChange={(e) => setInput(e.target.value)}
             value={input}
             id="my-input"
             autoFocus
           />
-          <Button
-            variant="outlined"
+          <IconButton
+            className="app__button"
+            variant="contained"
             color="primary"
             onClick={handleClick}
             disabled={!input}
             type="submit"
           >
-            Send Message
-            {/* <SendIcon /> */}
-          </Button>
+            <SendIcon />
+          </IconButton>
         </FormControl>
       </form>
       <FlipMove>
