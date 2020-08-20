@@ -1,0 +1,18 @@
+.message {
+  width: fit-content;
+  padding: 10px;
+  margin: 10px;
+}
+
+.message__user {
+  margin-left: auto;
+  text-align: right !important;
+}
+
+.message__sent {
+  background-color: #0b81ff !important;
+}
+
+.message__received {
+  background-color: #c9c9c9 !important;
+}
